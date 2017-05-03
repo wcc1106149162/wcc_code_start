@@ -15,28 +15,37 @@ import java.io.*;
 public class AddUser {
     @POST
     @Consumes("application/x-www-form-urlencoded")
-    public String post(@FormParam("name") String name,@FormParam("pwd") String pwd) throws IOException {
+    public String postadd(@FormParam("name") String name,@FormParam("pwd") String pwd) throws IOException {
+        String jsonStr = add(name,pwd);
+        return jsonStr;
+    }
+    public String add(String name,String pwd) {
         PrintWriter pw = null;
         String jsonString = null;
         try {
             File file = new File("D:/user.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             pw = new PrintWriter(
                     new OutputStreamWriter(
                             new BufferedOutputStream(
-                                    new FileOutputStream(file,true)
-                            ),"UTF-8"
-                    ),true
+                                    new FileOutputStream(file, true)
+                            ), "UTF-8"
+                    ), true
             );
-            User user = new User(name,pwd);
+            User user = new User(name, pwd);
             jsonString = JSON.toJSONString(user);
             pw.println(jsonString);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }finally{
-            if(pw!=null) pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) pw.close();
         }
-        return jsonString;
+        return  jsonString;
     }
 }

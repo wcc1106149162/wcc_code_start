@@ -9,15 +9,15 @@ import java.util.List;
  * Created by soft01 on 2017/5/3.
  */
 public class Group {
-    private String state;
+    private String status;
     private List<User> result = new ArrayList<User>();
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<User> getResult() {

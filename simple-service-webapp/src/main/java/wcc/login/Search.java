@@ -14,10 +14,14 @@ public class Search {
     @GET
 //    @Produces("text/plain")
     @Produces("application/json")
-    public String get(@QueryParam("name") String name) throws IOException {
+    public String getsearch(@QueryParam("name") String name) throws IOException {
+        String jsonStr = search(name);
+        return jsonStr;
+    }
+    public String search(String name) throws IOException {
         BufferedReader br = null;
         String jsons = null;
-            try {
+        try {
             File file = new File("D:/user.txt");
             br = new BufferedReader(
                     new InputStreamReader(
@@ -27,20 +31,19 @@ public class Search {
                     )
             );
             String b;
-           while((b=br.readLine())!=null){
-               User user = JSON.parseObject(b,User.class);
-               if(name.equals(user.getUsername())){
-                   return JSON.toJSONString(user);
-               }
+            while((b=br.readLine())!=null){
+                User user = JSON.parseObject(b,User.class);
+                if(name.equals(user.getUsername())){
+                    jsons = JSON.toJSONString(user);
+                }
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }finally{
-            if(br!=null) br.close();
+        }finally {
+            if (br != null) br.close();
         }
-        return null;
+        return jsons;
     }
-
 }
