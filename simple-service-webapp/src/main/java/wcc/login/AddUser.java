@@ -29,7 +29,6 @@ public class AddUser {
             );
             User user = new User(name,pwd);
             jsonString = JSON.toJSONString(user);
-            System.out.println(jsonString);
             pw.println(jsonString);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

@@ -15,7 +15,6 @@ public class Search {
 //    @Produces("text/plain")
     @Produces("application/json")
     public String get(@QueryParam("name") String name) throws IOException {
-        System.out.println(name);
         BufferedReader br = null;
         String jsons = null;
             try {
@@ -27,13 +26,13 @@ public class Search {
                             ),"UTF-8"
                     )
             );
-//           while((jsons=br.readLine())!=null){
-//               User user = JSON.parseObject(jsons,User.class);
-//               System.out.println(user.getUsername());
-//               if(name.equals(user.getUsername())){
-//                   return JSON.toJSONString(user);
-//               }
-//            }
+            String b;
+           while((b=br.readLine())!=null){
+               User user = JSON.parseObject(b,User.class);
+               if(name.equals(user.getUsername())){
+                   return JSON.toJSONString(user);
+               }
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
